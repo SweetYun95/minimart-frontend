@@ -48,6 +48,40 @@ shopmax-frontend/
 - └── main.jsx # React 앱 진입점
 
 ---
+## 📦 Import 순서 가이드
+>코드 작성 시, 다음과 같은 순서로 import 문을 정렬해주세요. 각 그룹 사이에는 한 줄 공백을 추가합니다.
+
+1. 외부 라이브러리
+ - React, React Router, MUI(Material UI), Redux 등
+ - 예시:
+```jsx
+import { Box, Button } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+```
+
+2. 내부 유틸 / 전역 설정 / API 모듈
+ - utils, hooks, context, api 등
+ - 예시:
+```jsx
+import { fetchPost } from '@/api/postApi';
+import useAuth from '@/hooks/useAuth';
+```
+3. 컴포넌트
+ - 직접 만든 컴포넌트들 (공통 또는 특정 도메인 컴포넌트 포함)
+ - 예시:
+```jsx
+import Navbar from '../components/shared/Navbar';
+import PostList from '../components/post/PostList';
+```
+4. 스타일 파일
+ - css, scss, tailwind 등
+ - 예시:
+```jsx
+import '@/styles/common.css';
+```
+
+---
 
 ## 👥 브랜치 전략
 
