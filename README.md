@@ -1,7 +1,7 @@
 # 🛍️ ShopMax Frontend
 
 이 프로젝트는 React 기반 이커머스 프론트엔드입니다.  
-브랜치별로 팀원이 각자 기능을 개발하고, 완성 후 `develop` 브랜치로 병합합니다.
+팀원들이 각자의 기능을 브랜치에서 개발한 뒤, `develop` 브랜치로 병합하여 협업합니다.
 
 ---
 
@@ -9,60 +9,129 @@
 
 -  `/public` — HTML 템플릿, 파비콘 등 정적 파일
 -  `/src` — 메인 소스 디렉토리
-   -  `/api` — Axios 요청 로직 모음
+   -  `/api` — Axios 요청 로직
       -  `authApi.js`, `orderApi.js`, `tokenApi.js`
    -  `/components` — 재사용 가능한 UI 컴포넌트
       -  `Button.jsx`, `Navbar.jsx`, `ProductCard.jsx`
-   -  `/components/chat` — 실시간 채팅 UI 관련 컴포넌트
-   -  `/components/chart` — 주문 차트, 통계 등 시각화
+   -  `/components/chat` — 실시간 채팅 관련 컴포넌트
+   -  `/components/chart` — 주문 통계, 차트 컴포넌트
    -  `/components/shared` — 공통 UI 요소 (Header, Footer 등)
-   -  `/features` — Redux Toolkit 슬라이스(State 관리)
+   -  `/features` — Redux Toolkit 슬라이스 모음
       -  `authSlice.js`, `orderSlice.js`, `tokenSlice.js`
-   -  `/pages` — 페이지 단위 컴포넌트
+   -  `/pages` — 라우팅 페이지
       -  `LoginPage.jsx`, `ProductPage.jsx`, `ChatPage.jsx`, `ChartPage.jsx`
    -  `/store` — Redux store 설정
-   <!-- - `/hooks` — 커스텀 훅 (예: `useAuth`, `useInput`) -->
-   -  `/styles` — Tailwind 설정 또는 별도 CSS 파일
-   -  `App.jsx` — 라우팅 설정 및 전역 구조
+   -  `/styles` — Tailwind 설정 또는 스타일 파일
+   -  `App.jsx` — 전체 라우팅 및 구조 설정
    -  `main.jsx` — React 앱 진입점
 -  `.env` — 환경 변수 (API 주소 등)
--  `vite.config.js` or `webpack.config.js` — 빌드 설정
+-  `vite.config.js` — Vite 빌드 설정
+
+---
+
+## 📂 기본 폴더 및 파일 구조
+
+shopmax-frontend/
+
+-  ├── public/ # 정적 리소스 (index.html, 파비콘 등)
+-  └── src/
+-  ├── api/ # Axios API 요청 함수 모음
+-  ├── components/ # UI 컴포넌트
+-  │ ├── auth/ # 로그인, 회원가입 컴포넌트
+-  │ ├── shared/ # 공통 컴포넌트 (헤더, 푸터 등)
+-  │ ├── item/ # 상품 관련 컴포넌트
+-  │ └── my/ # 마이페이지 관련 컴포넌트
+-  ├── features/ # Redux slice 파일들
+-  ├── pages/ # 라우트 페이지 컴포넌트
+-  ├── store/ # Redux 스토어 설정
+-  ├── styles/ # 전역 스타일 및 Tailwind 설정
+-  ├── utils/ # 공통 유틸 함수
+-  ├── App.jsx # 앱 메인 컴포넌트
+-  └── main.jsx # React 앱 진입점
+
+---
+
+## 📦 Import 순서 가이드
+
+> 코드 작성 시, 다음과 같은 순서로 import 문을 정렬해주세요. 각 그룹 사이에는 한 줄 공백을 추가합니다.
+
+1. 외부 라이브러리
+
+-  React, React Router, MUI(Material UI), Redux 등
+-  예시:
+
+```jsx
+import { Box, Button } from '@mui/material'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+```
+
+2. 내부 유틸 / 전역 설정 / API 모듈
+
+-  utils, hooks, context, api 등
+-  예시:
+
+```jsx
+import { fetchPost } from '@/api/postApi'
+import useAuth from '@/hooks/useAuth'
+```
+
+3. 컴포넌트
+
+-  직접 만든 컴포넌트들 (공통 또는 특정 도메인 컴포넌트 포함)
+-  예시:
+
+```jsx
+import Navbar from '../components/shared/Navbar'
+import PostList from '../components/post/PostList'
+```
+
+4. 스타일 파일
+
+-  css, scss, tailwind 등
+-  예시:
+
+```jsx
+import '@/styles/common.css'
+```
 
 ---
 
 ## 👥 브랜치 전략
 
 -  `main`: 배포용
--  `hcm`, `jsy`, `jse`, `ysy`: 각자 기능 개발 브랜치
--  hcm : 한창민
--  jsy : 정세연
--  jse : 정송이
--  ysy : 윤승영
+-  `develop`: 통합 개발 브랜치
+-  `hcm` : 한창민
+-  `jsy` : 정세연
+-  `jse` : 정송이
+-  `ysy` : 윤승영
 
-### ✅ 브랜치 생성 및 push 방법
+> 모든 기능 개발은 **각자 이름 브랜치에서 진행 후, `develop`으로 Pull Request**를 생성하여 병합합니다.
+
+---
+
+## 🔀 브랜치 작업 및 Push 방법
+
+### 1. 브랜치 최초 이동
 
 ```bash
-# 브랜치 최초 이동
 git checkout -t origin/브랜치이름
 
-# 예: 본인 이름으로 브랜치 이동
+# 예
 git checkout -t origin/hcm
-git checkout -t origin/jsy
-git checkout -t origin/jse
-git checkout -t origin/ysy
 
-# 최초 이동후 이동은
-git checkout 브랜치 이름
+# 이후 작업할 때는
+git checkout 브랜치이름
 
-# 최초 1회만 push 설정
+# 최초 Push 연결
 git push --set-upstream origin 브랜치이름
-git push
 
-```
+# 이후부터는 그냥 git push 만 해도 됩니다.
 
 ---
 
 ## ✍️ Git 커밋 메시지 작성 규칙
+```
 
 커밋 메시지는 형식과 내용을 명확하게 작성해야 협업 시 변경 내역을 빠르게 파악할 수 있습니다.  
 아래 형식을 따라 작성해주세요:
