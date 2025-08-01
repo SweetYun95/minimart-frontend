@@ -28,6 +28,26 @@
 - `vite.config.js` — Vite 빌드 설정
 
 ---
+## 📂 기본 폴더 및 파일 구조
+
+shopmax-frontend/
+- ├── public/ # 정적 리소스 (index.html, 파비콘 등)
+- └── src/
+- ├── api/ # Axios API 요청 함수 모음
+- ├── components/ # UI 컴포넌트
+- │ ├── auth/ # 로그인, 회원가입 컴포넌트
+- │ ├── shared/ # 공통 컴포넌트 (헤더, 푸터 등)
+- │ ├── item/ # 상품 관련 컴포넌트
+- │ └── my/ # 마이페이지 관련 컴포넌트
+- ├── features/ # Redux slice 파일들
+- ├── pages/ # 라우트 페이지 컴포넌트
+- ├── store/ # Redux 스토어 설정
+- ├── styles/ # 전역 스타일 및 Tailwind 설정
+- ├── utils/ # 공통 유틸 함수
+- ├── App.jsx # 앱 메인 컴포넌트
+- └── main.jsx # React 앱 진입점
+
+---
 
 ## 👥 브랜치 전략
 
