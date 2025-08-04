@@ -8,11 +8,11 @@ export const registerUser = async (userData) => {
       return response
    } catch (error) {
       console.error(`API Request 오류: ${error}`)
-      throw error 
+      throw error
    }
 }
 
-//로그인 
+//로그인
 export const loginUser = async (credentials) => {
    try {
       const response = await shopmaxApi.post('/auth/login', credentials)
@@ -44,3 +44,5 @@ export const checkAuthStatus = async () => {
       throw error
    }
 }
+
+//핸드폰번호로 비밀번호 찾기
