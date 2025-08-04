@@ -41,6 +41,8 @@ export const checkAuthStatusThunk = createAsyncThunk('auth/checkAuthStatus', asy
    }
 })
 
+//비밀번호 찾기
+
 const authSlice = createSlice({
    name: 'auth',
    initialState: {
@@ -65,7 +67,7 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //로그인
+         //로그인
          .addCase(loginUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
@@ -79,7 +81,7 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //로그아웃
+         //로그아웃
          .addCase(logoutUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
@@ -93,7 +95,7 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //로그인 상태 확인
+         //로그인 상태 확인
          .addCase(checkAuthStatusThunk.pending, (state) => {
             state.loading = true
             state.error = null
