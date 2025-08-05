@@ -73,6 +73,7 @@ const authSlice = createSlice({
             state.error = null
          })
          .addCase(loginUserThunk.fulfilled, (state, action) => {
+            console.log('✅ 로그인 완료! 사용자 정보:', action.payload)
             state.loading = false
             state.isAuthenticated = true
             state.user = action.payload
