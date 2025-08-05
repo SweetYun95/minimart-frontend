@@ -1,12 +1,23 @@
-const express = require('express')
-const router = express.Router()
+import shopmaxApi from './axiosApi'
 
+// 토큰 발급
 export const getToken = async () => {
    try {
+      const response = await shopmaxApi.get('/token/get')
+      return response
    } catch (error) {
       console.error(`API Request 오류: ${error}`)
       throw error
    }
 }
 
-module.exports = router
+// 토큰 조회
+export const readToken = async () => {
+   try {
+      const response = await shopmaxApi('/token/read')
+      return response
+   } catch (error) {
+      console.error(`API Request 오류: ${error}`)
+      throw error
+   }
+}
