@@ -122,6 +122,7 @@ import '@/styles/common.css'
 - `hcm-fix-login-bug` → 한창민 님이 로그인 버그 수정
 - `jse-test-api-token` → 정송이 님이 토큰 API 테스트
 
+
 ### ✅ 브랜치 생성 명령어
 
 ```bash
