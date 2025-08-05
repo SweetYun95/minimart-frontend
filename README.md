@@ -116,11 +116,12 @@ import '@/styles/common.css'
 
 ### ✅ 브랜치 네이밍 규칙
 
-[이니셜]/[작업유형]-[기능이름]
+[이니셜]-[작업유형]-[기능이름]
 예시:
-- `jsy/feat-popup` → 정세연 님이 팝업 기능 개발
-- `hcm/fix-login-bug` → 한창민 님이 로그인 버그 수정
-- `jse/test-api-token` → 정송이 님이 토큰 API 테스트
+- `jsy-feat-popup` → 정세연 님이 팝업 기능 개발
+- `hcm-fix-login-bug` → 한창민 님이 로그인 버그 수정
+- `jse-test-api-token` → 정송이 님이 토큰 API 테스트
+
 
 ### ✅ 브랜치 생성 명령어
 
