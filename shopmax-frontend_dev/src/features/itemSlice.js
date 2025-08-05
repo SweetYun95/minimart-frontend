@@ -77,7 +77,7 @@ const itemSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      builder
+
          // 상품 수정
          .addCase(updateItemThunk.pending, (state) => {
             state.loading = true
@@ -90,8 +90,8 @@ const itemSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //상품삭제
-      builder
+         //상품삭제
+
          .addCase(deleteItemThunk.pending, (state) => {
             state.loading = true
             state.error = null
@@ -103,8 +103,8 @@ const itemSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //전체 상품리스트 가져오기
-      builder
+         //전체 상품리스트 가져오기
+
          .addCase(fetchItemsThunk.pending, (state) => {
             state.loading = true
             state.error = null
@@ -118,8 +118,8 @@ const itemSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-      //특정 상품가져오기
-      builder
+         //특정 상품가져오기
+
          .addCase(fetchItemByIdThunk.pending, (state) => {
             state.loading = true
             state.error = null
