@@ -11,6 +11,7 @@ import Footer from './components/shared/Footer'
 import ItemSellListPage from './pages/ItemSellListPage'
 import ItemCreatePage from './pages/ItemCreatePage'
 import './App.css'
+import ReviewCreatePage from './pages/ReviewCreatePage'
 
 function App() {
    return (
@@ -29,6 +30,8 @@ function App() {
             <Route path="/item" element={<ItemSellListPage />} />
             {/* 상품등록 */}
             <Route path="/items/create" element={<ItemCreatePage />} />
+            {/* 리뷰 등록 */}
+            <Route path="/review/create" element={<ReviewCreatePage />} />
          </Routes>
          <Footer />
       </>
