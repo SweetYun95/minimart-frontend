@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 
-import Navbar from './components/shared/Navber'
+import Navbar from './components/shared/Navbar'
 import MainPage from './pages/MainPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
