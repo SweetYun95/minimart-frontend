@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function ItemSellList({ searchTerm }) {
    const dispatch = useDispatch()
-   const { items, loading, error } = useSelector((state) => state.items)
+   const { items, loading, error } = useSelector((state) => state.item)
    const [selectedCategory, setSelectedCategory] = useState('')
 
    const categories = [
