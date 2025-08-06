@@ -1,6 +1,10 @@
+
 import React, { useState } from 'react'
 import { CircularProgress } from '@mui/material'
+
 import { useDispatch } from 'react-redux'
+
+import axios from 'axios'
 
 import { registerUserThunk } from '../../features/authSlice'
 
@@ -16,27 +20,40 @@ function RegisterForm() {
       address: '',
       phone: '',
       email: '',
-      gender: '', // 선택 필드
+      gender: '',
    })
+
    const [idChecking, setIdChecking] = useState(false)
+   const [isIdAvailable, setIsIdAvailable] = useState(null) // null: 미확인, true: 사용 가능, false: 중복
 
    const handleChange = (e) => {
       const { name, value } = e.target
       setForm((prev) => ({ ...prev, [name]: value }))
+      if (name === 'userId') {
+         setIsIdAvailable(null) // 아이디 변경 시 상태 초기화
+      }
    }
 
    const handleIdCheck = async () => {
-      if (!form.userId.trim()) {
+      const userId = form.userId.trim()
+      if (!userId) {
          alert('아이디를 입력하세요')
          return
       }
 
       setIdChecking(true)
       try {
-         await new Promise((resolve) => setTimeout(resolve, 1000)) // 실제 API로 대체
-         alert('사용 가능한 아이디입니다')
+         const res = await axios.get(`/api/users/check-id?userId=${encodeURIComponent(userId)}`)
+         if (res.data.available) {
+            alert('사용 가능한 아이디입니다')
+            setIsIdAvailable(true)
+         } else {
+            alert('이미 사용 중인 아이디입니다')
+            setIsIdAvailable(false)
+         }
       } catch (e) {
-         alert('중복 확인 중 오류 발생')
+         alert('중복 확인 중 오류가 발생했습니다')
+         setIsIdAvailable(false)
       } finally {
          setIdChecking(false)
       }
@@ -44,6 +61,11 @@ function RegisterForm() {
 
    const handleSubmit = async (e) => {
       e.preventDefault()
+
+      if (!isIdAvailable) {
+         alert('아이디 중복 확인이 필요하거나, 이미 사용 중인 아이디입니다')
+         return
+      }
 
       if (form.password !== form.confirmPassword) {
          alert('비밀번호가 일치하지 않습니다')
@@ -63,7 +85,7 @@ function RegisterForm() {
 
          await dispatch(registerUserThunk(payload)).unwrap()
          alert('회원가입 성공!')
-         // 예: navigate('/login')
+         // navigate('/login')
       } catch (err) {
          alert(`회원가입 실패: ${err.message || err}`)
       }
@@ -86,6 +108,7 @@ function RegisterForm() {
              <div className='id-inside'>
                <input label="아이디" name="userId" placeholder='아이디를 입력해주세요.' value={form.userId} onChange={handleChange}  required />
                <button onClick={handleIdCheck} disabled={idChecking}>
+
                   {idChecking ? <CircularProgress size={20} /> : '중복확인'}
                </button>
              </div>
@@ -114,6 +137,7 @@ function RegisterForm() {
               <input label="주소" name="address" value={form.address} onChange={handleChange} placeholder='주소를 입력해주세요.' required margin="normal" />
             </div>
 
+
             {/* 성별 선택 */}
          <div className="form-group">
            <label htmlFor="gender">성별(선택)</label>
@@ -125,6 +149,7 @@ function RegisterForm() {
          </div>
 
             <button className='register-btn' type="submit" >
+
                회원가입
             </button>
            </div>
