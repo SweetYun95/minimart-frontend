@@ -22,7 +22,7 @@ function App() {
             <Route path="/join" element={<RegisterPage />} />
             <Route path="/token" element={<TokenPage />} />
             {/* 상품 상세 페이지 */}
-            <Route path="/item/:id" element={<ItemDetailPage />} />
+            <Route path="/items/detail/:id" element={<ItemDetailPage />} />
             {/* 주문/결제 페이지 */}
             <Route path="/order" element={<OrderPage />} />
             {/* 상품리스트 */}

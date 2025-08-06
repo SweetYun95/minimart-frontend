@@ -9,7 +9,7 @@ import ItemDetailForm from '../components/item/ItemDetailForm'
 function ItemDetailPage() {
    const { id } = useParams()
    const dispatch = useDispatch()
-   const { item, loading, error } = useSelector((state) => state.items)
+   const { item, loading, error } = useSelector((state) => state.item)
 
    useEffect(() => {
       if (id) {
