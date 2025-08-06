@@ -7,7 +7,7 @@ import orderReducer from '../features/orderSlice' // 주문 slice 추가
 const store = configureStore({
    reducer: {
       auth: authReducer,
-      item: itemReducer,
+      items: itemReducer,
       token: tokenReducer,
       order: orderReducer, // 주문 slice 등록
    },
