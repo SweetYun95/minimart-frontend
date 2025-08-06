@@ -2,8 +2,7 @@ import { Typography, Alert } from '@mui/material'
 
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { loginUserThunk } from '../../features/authSlice'
 
@@ -21,6 +20,18 @@ function LoginForm() {
       saveIdToggle: false,
    })
 
+   //저장된 ID 불러오기
+   useEffect(() => {
+      const saveId = localStorage.getItem('savedUserId')
+      if (saveId?.trim()) {
+         setFormData((prev) => ({
+            ...prev,
+            id: saveId.trim(),
+            saveIdToggle: true,
+         }))
+      }
+   }, [])
+
    useEffect(() => {
       if (isAuthenticated) {
          navigate('/') // 로그인 성공 시 이동
@@ -37,6 +48,20 @@ function LoginForm() {
 
    const handleSubmit = (e) => {
       e.preventDefault()
+
+      //기본 유효성 검사
+      if (!formData.id.trim() || !formData.password.trim()) {
+         alert('아이디와 비밀번호를 모두 입력하세요')
+         return
+      }
+
+      //아이디 저장 체크시 localStorage에 저장
+      if (formData.saveIdToggle) {
+         localStorage.setItem('savedUserId', formData.id)
+      } else {
+         localStorage.removeItem('savedUserId')
+      }
+
       // 로그인 thunk 호출 (userId: formData.id, password: formData.password)
       dispatch(loginUserThunk({ userId: formData.id, password: formData.password }))
    }

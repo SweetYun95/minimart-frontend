@@ -11,7 +11,19 @@ const shopmaxApi = axios.create({
       'Content-Type': 'application/json',
       Authorization: AUTH_KEY,
    },
-   withCredentials: true, 
+   withCredentials: true,
 })
+
+// 토큰 요청 인터셉터 추가
+shopmaxApi.interceptors.request.use(
+   (config) => {
+      const token = localStorage.getItem('token')
+      if (token) {
+         config.headers.Authorization = token
+      }
+      return config
+   },
+   (error) => Promise.reject(error)
+)
 
 export default shopmaxApi
