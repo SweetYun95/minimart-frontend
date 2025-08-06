@@ -11,6 +11,8 @@ function CreateReviewForm() {
    const [imgUrls, setImgUrls] = useState([])
    const [reviewContent, setReviewContent] = useState('')
    const [rating, setRating] = useState(0)
+   //테스트용 임시 코드
+   const itemId = 1
 
    // 등록한 이미지 미리보기
    const handleImageChange = (e) => {
@@ -53,14 +55,16 @@ function CreateReviewForm() {
          alert('후기 입력란에 내용을 작성해 주세요.')
          return
       }
-      if (!rating) {
-         alert('별점을 선택해 주세요.')
-         return
-      }
+      // if (!rating) {
+      //    alert('별점을 선택해 주세요.')
+      //    return
+      // }
 
       const formData = new FormData()
       formData.append('reviewContent', reviewContent)
       formData.append('rating', rating)
+      formData.append('itemId', itemId)
+      formData.append('reviewDate', new Date().toISOString())
 
       reviewImages.forEach((file) => {
          const encodedFile = new File([file], encodeURIComponent(file.name), { type: file.type })
@@ -72,11 +76,17 @@ function CreateReviewForm() {
       <>
          <Typography>productname에 대해 얼마나 만족하시나요?</Typography>
          <Box component="form" onSubmit={handleSubmit}>
-            <TextField fullWidth placeholder="여기에 리뷰를 작성하세요" onChange={(e) => setReviewContent(e.target.value)} />
+            <TextField multiline minRows={5} fullWidth placeholder="여기에 리뷰를 작성하세요" onChange={(e) => setReviewContent(e.target.value)} />
             <Box display="flex" gap={2} mt={2}>
                {imgUrls.map((url, index) => (
-                  <Box key={index}>
-                     <img src={url} alt={`리뷰 이미지 ${index + 1}`} />
+                  <Box
+                     key={index}
+                     sx={{
+                        width: '120px',
+                        height: '120px',
+                     }}
+                  >
+                     <img src={url} alt={`리뷰 이미지 ${index + 1}`} style={{ width: '100%' }} />
                   </Box>
                ))}
             </Box>
