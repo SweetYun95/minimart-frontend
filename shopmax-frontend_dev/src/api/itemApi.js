@@ -1,23 +1,28 @@
+// src/api/itemApi.js
 import shopmaxApi from './axiosApi'
 
-// 상품 등록
-export const createItem = async (itemData) => {
+// 상품 등록 (FormData 사용)
+export const createItem = async (formData) => {
    try {
-      const response = await shopmaxApi.post('/item', itemData)
+      const response = await shopmaxApi.post('/item', formData, {
+         headers: { 'Content-Type': 'multipart/form-data' },
+      })
       return response
    } catch (error) {
-      console.log(`API Request 오류: ${error}`)
+      console.error(`API Request 오류: ${error}`)
       throw error
    }
 }
 
-// 상품 수정
-export const updateItem = async (id, itemData) => {
+// 상품 수정 (FormData 사용)
+export const updateItem = async (id, formData) => {
    try {
-      const response = await shopmaxApi.put(`/item/${id}`, itemData)
+      const response = await shopmaxApi.put(`/item/${id}`, formData, {
+         headers: { 'Content-Type': 'multipart/form-data' },
+      })
       return response
    } catch (error) {
-      console.log(`API Request 오류: ${error}`)
+      console.error(`API Request 오류: ${error}`)
       throw error
    }
 }
@@ -28,7 +33,7 @@ export const deleteItem = async (id) => {
       const response = await shopmaxApi.delete(`/item/${id}`)
       return response
    } catch (error) {
-      console.log(`API Request 오류: ${error}`)
+      console.error(`API Request 오류:${error}`)
       throw error
    }
 }
@@ -36,11 +41,11 @@ export const deleteItem = async (id) => {
 // 전체 상품 리스트 가져오기
 export const getItems = async (data) => {
    try {
-      const { searchTerm = '', sellCategory = '', categoryId = '' } = data
-      const response = await shopmaxApi.get(`item?searchTerm=${searchTerm}&sellCategory=${sellCategory}&categoryId=${categoryId}`)
+      const { searchTerm = '', categoryId = '', sellCategory = '' } = data
+      const response = await shopmaxApi.get(`item?searchTerm=${searchTerm}&categoryId=${categoryId}&sellCategory=${sellCategory}`)
       return response
    } catch (error) {
-      console.log(`API Request 오류: ${error}`)
+      console.error(`API Request 오류:${error}`)
       throw error
    }
 }
@@ -51,7 +56,7 @@ export const getItemById = async (id) => {
       const response = await shopmaxApi.get(`/item/${id}`)
       return response
    } catch (error) {
-      console.log(`API Request 오류: ${error}`)
+      console.error(`API Request 오류:${error}`)
       throw error
    }
 }
