@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import store from './store/store'
 
 import './index.css'
+import "galmuri/dist/galmuri.css";
+import "@iconify-icon/react";
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
