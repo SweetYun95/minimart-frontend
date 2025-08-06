@@ -8,6 +8,7 @@ import TokenPage from './pages/TokenPage'
 import Footer from './components/shared/Footer'
 
 import './App.css'
+import ReviewPage from './pages/ReviewPage'
 
 function App() {
    return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/join" element={<RegisterPage />} />
             <Route path="/token" element={<TokenPage />} />
+            <Route path="review" element={<ReviewPage />} />
          </Routes>
          <Footer />
       </>
