@@ -8,7 +8,8 @@ import TokenPage from './pages/TokenPage'
 import ItemDetailPage from './pages/itemDetailPage'
 import OrderPage from './pages/OrderPage'
 import Footer from './components/shared/Footer'
-
+import ItemSellListPage from './pages/ItemSellListPage'
+import ItemCreatePage from './pages/ItemCreatePage'
 import './App.css'
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
             <Route path="/item/:id" element={<ItemDetailPage />} />
             {/* 주문/결제 페이지 */}
             <Route path="/order" element={<OrderPage />} />
+            {/* 상품리스트 */}
+            <Route path="/item" element={<ItemSellListPage />} />
+            {/* 상품등록 */}
+            <Route path="/items/create" element={<ItemCreatePage />} />
          </Routes>
          <Footer />
       </>
