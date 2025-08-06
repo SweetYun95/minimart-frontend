@@ -59,6 +59,7 @@ function CreateReviewForm() {
       //    alert('별점을 선택해 주세요.')
       //    return
       // }
+      // 별점 어떻게 구현할지 상의 후 주석 해제, 화면에 별점 출력 코드 추가 필요
 
       const formData = new FormData()
       formData.append('reviewContent', reviewContent)
