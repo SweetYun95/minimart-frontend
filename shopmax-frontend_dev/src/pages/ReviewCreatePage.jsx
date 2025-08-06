@@ -1,7 +1,7 @@
 import { Container } from '@mui/material'
 import CreateReviewForm from '../components/review/CreateReviewForm'
 
-function ReviewPage() {
+function ReviewCreatePage() {
    return (
       <Container>
          <CreateReviewForm />
@@ -9,4 +9,4 @@ function ReviewPage() {
    )
 }
 
-export default ReviewPage
+export default ReviewCreatePage
