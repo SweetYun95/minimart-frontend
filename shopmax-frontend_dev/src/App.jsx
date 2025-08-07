@@ -12,7 +12,7 @@ import OrderPage from './pages/OrderPage'
 import ReviewCreatePage from './pages/ReviewCreatePage'
 import Footer from './components/shared/Footer'
 import './App.css'
-import ReviewCreatePage from './pages/ReviewCreatePage'
+
 
 function App() {
    return (
