@@ -1,10 +1,10 @@
 import { Box, Button, Typography, Stack, TextField, Card, CardMedia, CardContent } from '@mui/material'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { deleteItemThunk, fetchItemsThunk } from '../../features/itemSlice'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function ItemPanel({ searchTerm, sellCategory }) {
    const dispatch = useDispatch()
@@ -23,7 +23,8 @@ function ItemPanel({ searchTerm, sellCategory }) {
             .catch(() => alert('상품 삭제 중 오류 발생'))
       }
    }
-
+   if (loading) <p>로딩 중...</p>
+   if (error) <p>에러가 발생했습니다.: {error}</p>
    return (
       <>
          <Box
@@ -47,8 +48,8 @@ function ItemPanel({ searchTerm, sellCategory }) {
                         <Typography>{item.itemNm}</Typography>
                      </CardContent>
                      <Box>
-                        <Link to={``}>
-                           <Button>수정</Button>
+                        <Link to={<ItemEditPage />}>
+                           <Button initialData={item}>수정</Button>
                         </Link>
                         <Button onClick={onClickDelete} id={item.id}>
                            삭제
