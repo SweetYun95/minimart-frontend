@@ -30,6 +30,8 @@ function ItemDetailForm({ item }) {
             ],
          }
 
+         console.log('📁[ItemDetailForm.jsx] orderData:', orderData)
+
          await dispatch(createOrderThunk(orderData)).unwrap()
          alert('주문이 완료되었습니다.')
       } catch (err) {
