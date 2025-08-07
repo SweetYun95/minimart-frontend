@@ -1,14 +1,8 @@
 // src/features/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {
-   registerUser,
-   loginUser,
-   logoutUser,
-   checkAuthStatus,
-   googleLoginUser, // ✅ 구글 로그인 API 함수 추가
-} from '../api/authApi'
+import { registerUser, loginUser, logoutUser, checkAuthStatus, googleLoginUser } from '../api/authApi'
 
-// ✅ 구글 로그인
+// ✅ 구글 로그인(DB 저장 전용)
 export const googleLoginUserThunk = createAsyncThunk('auth/googleLoginUser', async (googleData, { rejectWithValue }) => {
    try {
       const response = await googleLoginUser(googleData)
@@ -48,7 +42,7 @@ export const logoutUserThunk = createAsyncThunk('auth/logoutUser', async (_, { r
    }
 })
 
-// 로그인 상태확인
+// 로그인 상태 확인
 export const checkAuthStatusThunk = createAsyncThunk('auth/checkAuthStatus', async (_, { rejectWithValue }) => {
    try {
       const response = await checkAuthStatus()
@@ -98,7 +92,7 @@ const authSlice = createSlice({
             state.error = action.payload
          })
 
-         // ✅ 구글 로그인
+         // 구글 로그인
          .addCase(googleLoginUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
