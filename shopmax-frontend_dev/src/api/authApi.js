@@ -46,3 +46,11 @@ export const checkAuthStatus = async () => {
 }
 
 //핸드폰번호로 비밀번호 찾기
+
+
+
+// 구글 로그인 리다이렉트
+export const redirectToGoogleLogin = () => {
+   window.location.href = 'http://localhost:3000/auth/google'
+   // 실제 배포 시에는 이 URL을 백엔드 서버 주소로 변경해줘!
+}
