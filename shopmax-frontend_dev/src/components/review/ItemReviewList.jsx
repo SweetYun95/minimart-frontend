@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Stack, TextField, keyframes, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +13,9 @@ function ItemReviewList({ item }) {
    }, [dispatch, item])
 
    if (reviews) console.log('🎁[ItemReviewList.jsx] 리뷰 데이터 확인:', reviews)
+
+   if (loading) <p>로딩 중...</p>
+   if (error) <p>에러가 발생했습니다.: {error}</p>
 
    return (
       <>
