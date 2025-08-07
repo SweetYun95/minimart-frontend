@@ -11,8 +11,10 @@ import ItemCreatePage from './pages/ItemCreatePage'
 import OrderPage from './pages/OrderPage'
 import ReviewCreatePage from './pages/ReviewCreatePage'
 import Footer from './components/shared/Footer'
+import GoogleSuccessPage from './pages/GoogleSuccessPage' // ✅ 추가
+
 import './App.css'
-import ReviewCreatePage from './pages/ReviewCreatePage'
+
 
 function App() {
    return (
@@ -29,11 +31,12 @@ function App() {
             <Route path="/order" element={<OrderPage />} />
             {/* 상품리스트 */}
             <Route path="/item" element={<ItemSellListPage />} />
-
             {/* 상품등록 */}
             <Route path="/items/create" element={<ItemCreatePage />} />
             {/* 리뷰 등록 */}
             <Route path="/review/create" element={<ReviewCreatePage />} />
+            {/* 구글로그인 이동 */}
+            <Route path="/google-success" element={<GoogleSuccessPage />} /> {/* ✅ 추가 */}
          </Routes>
          <Footer />
       </>
