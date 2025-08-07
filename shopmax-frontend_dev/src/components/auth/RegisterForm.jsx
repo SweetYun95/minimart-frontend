@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
 import { CircularProgress } from '@mui/material'
-
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { checkUsername } from '../../api/authApi' // 수정된 authApi에서 checkUsername 함수 임포트
+import { checkUsername } from '../../api/authApi'
 import { registerUserThunk } from '../../features/authSlice'
 
 import '../css/RegisterForm.css'
 
 function RegisterForm() {
    const dispatch = useDispatch()
+   const navigate = useNavigate()
    const [form, setForm] = useState({
       userId: '',
       password: '',
@@ -83,7 +84,7 @@ function RegisterForm() {
 
          await dispatch(registerUserThunk(payload)).unwrap()
          alert('회원가입 성공!')
-         // navigate('/login')
+         navigate('/login')
       } catch (err) {
          alert(`회원가입 실패: ${err.message || err}`)
       }
