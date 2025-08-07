@@ -1,5 +1,22 @@
+// src/features/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { registerUser, loginUser, logoutUser, checkAuthStatus } from '../api/authApi'
+import {
+   registerUser,
+   loginUser,
+   logoutUser,
+   checkAuthStatus,
+   googleLoginUser, // ✅ 구글 로그인 API 함수 추가
+} from '../api/authApi'
+
+// ✅ 구글 로그인
+export const googleLoginUserThunk = createAsyncThunk('auth/googleLoginUser', async (googleData, { rejectWithValue }) => {
+   try {
+      const response = await googleLoginUser(googleData)
+      return response.data.user
+   } catch (error) {
+      return rejectWithValue(error.response?.data?.message || '구글 로그인 실패')
+   }
+})
 
 // 회원가입
 export const registerUserThunk = createAsyncThunk('auth/registerUser', async (userData, { rejectWithValue }) => {
@@ -41,20 +58,18 @@ export const checkAuthStatusThunk = createAsyncThunk('auth/checkAuthStatus', asy
    }
 })
 
-//비밀번호 찾기
-
 const authSlice = createSlice({
    name: 'auth',
    initialState: {
       user: null,
-      isAuthenticated: false, //로그인 상태: 로그인이 되어있으면 true 그렇지 않으면 false
+      isAuthenticated: false,
       loading: false,
       error: null,
    },
    reducers: {},
    extraReducers: (builder) => {
-      //회원가입
       builder
+         // 회원가입
          .addCase(registerUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
@@ -67,13 +82,13 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-         //로그인
+
+         // 일반 로그인
          .addCase(loginUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
          })
          .addCase(loginUserThunk.fulfilled, (state, action) => {
-            console.log('✅ 로그인 완료! 사용자 정보:', action.payload)
             state.loading = false
             state.isAuthenticated = true
             state.user = action.payload
@@ -82,21 +97,38 @@ const authSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-         //로그아웃
+
+         // ✅ 구글 로그인
+         .addCase(googleLoginUserThunk.pending, (state) => {
+            state.loading = true
+            state.error = null
+         })
+         .addCase(googleLoginUserThunk.fulfilled, (state, action) => {
+            state.loading = false
+            state.isAuthenticated = true
+            state.user = action.payload
+         })
+         .addCase(googleLoginUserThunk.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+         })
+
+         // 로그아웃
          .addCase(logoutUserThunk.pending, (state) => {
             state.loading = true
             state.error = null
          })
-         .addCase(logoutUserThunk.fulfilled, (state, action) => {
+         .addCase(logoutUserThunk.fulfilled, (state) => {
             state.loading = false
             state.isAuthenticated = false
-            state.user = null //로그아웃 후 유저 정보 초기화
+            state.user = null
          })
          .addCase(logoutUserThunk.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
          })
-         //로그인 상태 확인
+
+         // 로그인 상태 확인
          .addCase(checkAuthStatusThunk.pending, (state) => {
             state.loading = true
             state.error = null
