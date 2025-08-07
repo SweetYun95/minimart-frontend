@@ -91,9 +91,9 @@ function ItemDetailForm({ item }) {
             </Typography>
 
             {/* 간단 설명 */}
-            {item.itemDetail && (
+            {item.itemSummary && (
                <Typography variant="body1" gutterBottom>
-                  {item.itemDetail}
+                  {item.itemSummary}
                </Typography>
             )}
 
@@ -112,6 +112,13 @@ function ItemDetailForm({ item }) {
                   구매하기
                </Button>
             </Stack>
+
+            {/* 상세설명 출력 영역 */}
+            {item.itemDetail && (
+               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }} fullWidth>
+                  {item.itemDetail}
+               </Typography>
+            )}
          </Box>
       </>
    )
