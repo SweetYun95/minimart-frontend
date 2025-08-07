@@ -2,8 +2,8 @@ import { Box, Button, Typography, Stack, TextField, keyframes, Accordion, Accord
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { getItemReviewThunk } from '../../features/reviewSlice'
-import { useParams } from 'react-router-dom'
 
 function ItemReviewList({ item }) {
    const dispatch = useDispatch()
