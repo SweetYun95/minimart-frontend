@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 const savedLikes = JSON.parse(localStorage.getItem('likes')) || {}
 
 const likeSlice = createSlice({
