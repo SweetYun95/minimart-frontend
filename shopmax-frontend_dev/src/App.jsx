@@ -6,12 +6,12 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import TokenPage from './pages/TokenPage'
 import ItemSellListPage from './pages/ItemSellListPage'
-
+import ItemDetailPage from './pages/ItemDetailPage'
 import ItemCreatePage from './pages/ItemCreatePage'
 import OrderPage from './pages/OrderPage'
 import ReviewCreatePage from './pages/ReviewCreatePage'
 import Footer from './components/shared/Footer'
-import GoogleSuccessPage from './pages/GoogleSuccessPage'
+import GoogleSuccessPage from './pages/GoogleSuccessPage' // ✅ 추가
 
 import './App.css'
 
@@ -34,6 +34,8 @@ function App() {
             <Route path="/items/create" element={<ItemCreatePage />} />
             {/* 리뷰 등록 */}
             <Route path="/review/create" element={<ReviewCreatePage />} />
+            {/* 구글로그인 이동 */}
+            <Route path="/google-success" element={<GoogleSuccessPage />} /> {/* ✅ 추가 */}
          </Routes>
          <Footer />
       </>
