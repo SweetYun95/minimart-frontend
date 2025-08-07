@@ -12,6 +12,7 @@ import ItemSellListPage from './pages/ItemSellListPage'
 import ItemCreatePage from './pages/ItemCreatePage'
 import './App.css'
 import ReviewCreatePage from './pages/ReviewCreatePage'
+import ItemLikePage from './pages/ItemLikePage'
 
 function App() {
    return (
@@ -32,6 +33,8 @@ function App() {
             <Route path="/items/create" element={<ItemCreatePage />} />
             {/* 리뷰 등록 */}
             <Route path="/review/create" element={<ReviewCreatePage />} />
+            {/* 상품좋아요 페이지 */}
+            <Route path="/items/liked" element={<ItemLikePage />} />
          </Routes>
          <Footer />
       </>
