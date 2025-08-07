@@ -48,8 +48,8 @@ function ItemPanel({ searchTerm, sellCategory }) {
                         <Typography>{item.itemNm}</Typography>
                      </CardContent>
                      <Box>
-                        <Link to={<ItemEditPage />}>
-                           <Button initialData={item}>수정</Button>
+                        <Link to={`/items/edit/${item.id}`} state={{ initialData: item }}>
+                           <Button>수정</Button>
                         </Link>
                         <Button onClick={onClickDelete} id={item.id}>
                            삭제
