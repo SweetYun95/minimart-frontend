@@ -10,9 +10,6 @@ function ItemDetailPage() {
    const { id } = useParams()
    const dispatch = useDispatch()
    const { item, loading, error } = useSelector((state) => state.item)
-
-   if (item) console.log('📁[ItemDetailPage.jsx] item:', item)
-
    useEffect(() => {
       if (id) {
          dispatch(fetchItemByIdThunk(id))
