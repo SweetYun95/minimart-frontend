@@ -13,6 +13,7 @@ import ReviewCreatePage from './pages/ReviewCreatePage'
 import AdminPage from './pages/AdminPage'
 import Footer from './components/shared/Footer'
 import './App.css'
+import ItemEditPage from './pages/ItemEditPage'
 
 function App() {
    return (
@@ -36,8 +37,10 @@ function App() {
             <Route path="/review/create" element={<ReviewCreatePage />} />
             {/* 관리자 전용 페이지 */}
             <Route path="/admin" element={<AdminPage />} />
-            {/* 상품등록 */}
+            {/* 상품 등록 */}
             <Route path="/items/create" element={<ItemCreatePage />} />
+            {/* 상품 수정 */}
+            <Route path="/items/edit" element={<ItemEditPage />} />
          </Routes>
          <Footer />
       </>
