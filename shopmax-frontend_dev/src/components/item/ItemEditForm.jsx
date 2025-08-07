@@ -1,24 +1,28 @@
 import { TextField, Button, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material'
 import { useState } from 'react'
 import { formatWithComma, stripComma } from '../../utils/priceSet'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { updateItemThunk } from '../../features/itemSlice'
 
-function ItemCreateForm({ onCreateSubmit }) {
-   const [imgUrls, setImgUrls] = useState([]) // 이미지 경로(여러개 저장)
-   const [imgFiles, setImgFiles] = useState([]) // 이미지 파일 객체(여러개 저장)
-   const [itemNm, setItemNm] = useState('') // 상품명
-   const [price, setPrice] = useState('') // 가격
-   const [stockNumber, setStockNumber] = useState('') // 재고
-   const [itemSellStatus, setItemSellStatus] = useState('SELL') // 판매상태
-   const [itemDetail, setItemDetail] = useState('') // 상품설명
-   const [itemSummary, setItemSummary] = useState('') // 상품 요약 (간단한 설명)
+function ItemEditForm({ initialData }) {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+   const [imgUrls, setImgUrls] = useState(initialData.ItemImages.map((img) => import.meta.env.VITE_APP_API_URL + img.imgUrl))
+   const [imgFiles, setImgFiles] = useState([])
+   const [itemNm, setItemNm] = useState(initialData.itemNm)
+   const [price, setPrice] = useState(initialData.price)
+   const [stockNumber, setStockNumber] = useState(initialData.stockNumber)
+   const [itemSellStatus, setItemSellStatus] = useState(initialData.itemSellStatus)
+   const [itemDetail, setItemDetail] = useState(initialData.itemDetail)
+   const [itemSummary, setItemSummary] = useState(initialData.itemSummary)
 
    // 이미지 미리보기
    const handleImageChange = (e) => {
-      const files = e.target.files // 업로드된 모든 파일 객체 가져오기
-      if (!files || files.length === 0) return // 파일이 없거나 파일길이가 0이면 함수 종료
-
+      const files = e.target.files
+      if (!files || files.length === 0) return
       const newFiles = Array.from(files).slice(0, 5)
-      console.log(newFiles)
 
       setImgFiles(newFiles)
 
@@ -40,6 +44,19 @@ function ItemCreateForm({ onCreateSubmit }) {
       })
    }
 
+   const onEditSubmit = (formData) => {
+      dispatch(updateItemThunk(initialData.id, formData))
+      //  .unwrap()
+      //  .then(() => {
+      //     alert('수정이 완료되었습니다.')
+      //     navigate('/admin')
+      //  })
+      //  .catch(() => {
+      //     console.error('상품 수정 에러:', error)
+      //     alert('상품 수정에 실패했습니다.:' + error)
+      //  })
+   }
+
    // 상품 등록
    const handleSubmit = (e) => {
       e.preventDefault()
@@ -59,11 +76,6 @@ function ItemCreateForm({ onCreateSubmit }) {
          return
       }
 
-      if (imgFiles.length === 0) {
-         alert('이미지 최소 1개 이상 업로드 하세요.')
-         return
-      }
-
       const formData = new FormData()
       formData.append('itemNm', itemNm)
       formData.append('price', price)
@@ -73,13 +85,15 @@ function ItemCreateForm({ onCreateSubmit }) {
       formData.append('itemSummary', itemSummary)
 
       // 이미지 파일 여러개 인코딩 처리(한글 파일명 깨짐 방지) 및 formData에 추가
-      imgFiles.forEach((file) => {
-         const encodedFile = new File([file], encodeURIComponent(file.name), { type: file.type })
-         formData.append('img', encodedFile)
-      })
+      if (imgFiles) {
+         imgFiles.forEach((file) => {
+            const encodedFile = new File([file], encodeURIComponent(file.name), { type: file.type })
+            formData.append('img', encodedFile)
+         })
+      }
 
       // 상품등록 함수 실행
-      onCreateSubmit(formData)
+      onEditSubmit(formData)
    }
 
    const handlePriceChange = (e) => {
@@ -149,7 +163,7 @@ function ItemCreateForm({ onCreateSubmit }) {
             label="가격"
             variant="outlined"
             fullWidth
-            value={formatWithComma(price)} // 콤마 추가된 값 표시
+            value={formatWithComma(price.toString())} // 콤마 추가된 값 표시
             onChange={handlePriceChange} // 입력 핸들러
             placeholder="가격"
             sx={{ mt: 2 }}
@@ -175,12 +189,12 @@ function ItemCreateForm({ onCreateSubmit }) {
          {/* 상품설명 입력 필드 */}
          <TextField label="상품설명" variant="outlined" fullWidth multiline rows={4} value={itemDetail} onChange={(e) => setItemDetail(e.target.value)} sx={{ mt: 2 }} />
 
-         {/* 등록 버튼 */}
+         {/* 수정 버튼 */}
          <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-            등록하기
+            수정하기
          </Button>
       </Box>
    )
 }
 
-export default ItemCreateForm
+export default ItemEditForm
