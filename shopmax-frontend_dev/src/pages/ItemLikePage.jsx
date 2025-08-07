@@ -12,7 +12,7 @@ const ItemLikePage = () => {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      dispatch(fetchItemsThunk({ searchTerm: '', categoryId: '' }))
+      dispatch(fetchItemsThunk({ categoryId: '' }))
    }, [dispatch])
 
    const { items } = useSelector((state) => state.item)

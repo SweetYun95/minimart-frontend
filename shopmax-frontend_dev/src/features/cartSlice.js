@@ -80,9 +80,8 @@ const cartSlice = createSlice({
             state.loading = true
             state.error = null
          })
-         .addCase(updateCartItemThunk.fulfilled, (state, action) => {
+         .addCase(updateCartItemThunk.fulfilled, (state) => {
             state.loading = false
-            state.items = action.payload
          })
          .addCase(updateCartItemThunk.rejected, (state, action) => {
             state.loading = false
@@ -93,9 +92,8 @@ const cartSlice = createSlice({
             state.loading = true
             state.error = null
          })
-         .addCase(deleteCartItemThunk.fulfilled, (state, action) => {
+         .addCase(deleteCartItemThunk.fulfilled, (state) => {
             state.loading = false
-            state.items = action.payload
          })
          .addCase(deleteCartItemThunk.rejected, (state, action) => {
             state.loading = false
