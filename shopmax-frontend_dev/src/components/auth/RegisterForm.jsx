@@ -3,8 +3,7 @@ import { CircularProgress } from '@mui/material'
 
 import { useDispatch } from 'react-redux'
 
-import axios from 'axios'
-
+import { checkUsername } from '../../api/authApi' // 수정된 authApi에서 checkUsername 함수 임포트
 import { registerUserThunk } from '../../features/authSlice'
 
 import '../css/RegisterForm.css'
@@ -42,11 +41,8 @@ function RegisterForm() {
 
       setIdChecking(true)
       try {
-         const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/api/users/check-id?userId=${encodeURIComponent(userId)}`)
-
-         console.log('[중복확인 응답]', res.data)
-
-         if (res.data.available) {
+         const res = await checkUsername(userId) // 수정된 authApi에서 호출
+         if (res.status === 200) {
             alert('사용 가능한 아이디입니다')
             setIsIdAvailable(true)
          } else {

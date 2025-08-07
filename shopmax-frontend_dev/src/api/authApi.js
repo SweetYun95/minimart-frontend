@@ -1,7 +1,7 @@
 // src/api/authApi.js
 import shopmaxApi from './axiosApi'
 
-//회원가입
+// 회원가입
 export const registerUser = async (userData) => {
    try {
       const response = await shopmaxApi.post('/auth/join', userData)
@@ -12,7 +12,7 @@ export const registerUser = async (userData) => {
    }
 }
 
-//로그인
+// 로그인
 export const loginUser = async (credentials) => {
    try {
       const response = await shopmaxApi.post('/auth/login', credentials)
@@ -23,7 +23,7 @@ export const loginUser = async (credentials) => {
    }
 }
 
-//로그아웃
+// 로그아웃
 export const logoutUser = async () => {
    try {
       const response = await shopmaxApi.get('/auth/logout')
@@ -34,10 +34,10 @@ export const logoutUser = async () => {
    }
 }
 
-//로그인 상태 확인
+// 로그인 상태 확인
 export const checkAuthStatus = async () => {
    try {
-      const response = await shopmaxApi.get('/auth/status')
+      const response = await shopmaxApi.get('/auth/check')
       return response
    } catch (error) {
       console.error(`API Request 오류: ${error}`)
@@ -45,4 +45,13 @@ export const checkAuthStatus = async () => {
    }
 }
 
-//핸드폰번호로 비밀번호 찾기
+// 아이디 중복 확인
+export const checkUsername = async (userId) => {
+   try {
+      const response = await shopmaxApi.post('/auth/check-username', { userId })
+      return response
+   } catch (error) {
+      console.error(`아이디 중복 확인 오류: ${error}`)
+      throw error
+   }
+}
