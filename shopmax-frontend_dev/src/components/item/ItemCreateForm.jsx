@@ -10,6 +10,7 @@ function ItemCreateForm({ onCreateSubmit }) {
    const [stockNumber, setStockNumber] = useState('') // 재고
    const [itemSellStatus, setItemSellStatus] = useState('SELL') // 판매상태
    const [itemDetail, setItemDetail] = useState('') // 상품설명
+   const [itemSummary, setItemSummary] = useState('') // 상품 요약 (간단한 설명)
 
    // 이미지 미리보기
    const handleImageChange = (e) => {
@@ -69,6 +70,7 @@ function ItemCreateForm({ onCreateSubmit }) {
       formData.append('stockNumber', stockNumber)
       formData.append('itemSellStatus', itemSellStatus)
       formData.append('itemDetail', itemDetail)
+      formData.append('itemSummary', itemSummary)
 
       // 이미지 파일 여러개 인코딩 처리(한글 파일명 깨짐 방지) 및 formData에 추가
       imgFiles.forEach((file) => {
@@ -166,6 +168,9 @@ function ItemCreateForm({ onCreateSubmit }) {
                <MenuItem value="SOLD_OUT">품절</MenuItem>
             </Select>
          </FormControl>
+
+         {/* 상품 요약 입력 필드 */}
+         <TextField label="상품 요약 (500자 미만)" variant="outlined" fullWidth multiline rows={2} value={itemSummary} onChange={(e) => setItemSummary(e.target.value)} sx={{ mt: 2 }} />
 
          {/* 상품설명 입력 필드 */}
          <TextField label="상품설명" variant="outlined" fullWidth multiline rows={4} value={itemDetail} onChange={(e) => setItemDetail(e.target.value)} sx={{ mt: 2 }} />
