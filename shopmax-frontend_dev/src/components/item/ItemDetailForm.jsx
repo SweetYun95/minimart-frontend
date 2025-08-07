@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { createOrderThunk } from '../../features/orderSlice'
+import ItemReviewList from '../review/ItemReviewList'
 
 function ItemDetailForm({ item }) {
    const dispatch = useDispatch()
@@ -17,8 +18,6 @@ function ItemDetailForm({ item }) {
       const value = Math.max(1, Number(e.target.value) || 1)
       setQuantity(value)
    }
-
-   console.log(item.ItemImages.filter((data) => data.repImgYn === 'N').map((img) => img.imgUrl))
 
    const handleBuyNow = async () => {
       try {
@@ -112,6 +111,9 @@ function ItemDetailForm({ item }) {
                   구매하기
                </Button>
             </Stack>
+
+            {/* 상품에 대한 리뷰 리스트 출력 */}
+            <ItemReviewList item={item} />
 
             {/* 상세설명 출력 영역 */}
             {item.itemDetail && (
