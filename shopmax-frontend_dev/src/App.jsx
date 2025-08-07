@@ -5,15 +5,15 @@ import MainPage from './pages/MainPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import TokenPage from './pages/TokenPage'
-import ItemDetailPage from './pages/itemDetailPage'
-import OrderPage from './pages/OrderPage'
-import Footer from './components/shared/Footer'
 import ItemSellListPage from './pages/ItemSellListPage'
+
 import ItemCreatePage from './pages/ItemCreatePage'
-import './App.css'
+import OrderPage from './pages/OrderPage'
 import ReviewCreatePage from './pages/ReviewCreatePage'
-import ItemLikePage from './pages/ItemLikePage'
-import ItemCartPage from './pages/ItemCartPage'
+import Footer from './components/shared/Footer'
+import GoogleSuccessPage from './pages/GoogleSuccessPage'
+
+import './App.css'
 
 function App() {
    return (
@@ -34,10 +34,6 @@ function App() {
             <Route path="/items/create" element={<ItemCreatePage />} />
             {/* 리뷰 등록 */}
             <Route path="/review/create" element={<ReviewCreatePage />} />
-            {/* 상품좋아요 페이지 */}
-            <Route path="/items/liked" element={<ItemLikePage />} />
-            {/* 상품 장바구니 페이지 */}
-            <Route path="/cart" element={<ItemCartPage />} />
          </Routes>
          <Footer />
       </>
