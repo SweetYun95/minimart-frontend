@@ -12,6 +12,8 @@ import OrderPage from './pages/OrderPage'
 import ReviewCreatePage from './pages/ReviewCreatePage'
 import AdminPage from './pages/AdminPage'
 import Footer from './components/shared/Footer'
+import GoogleSuccessPage from './pages/GoogleSuccessPage' // ✅ 추가
+
 import './App.css'
 import ItemEditPage from './pages/ItemEditPage'
 
@@ -23,6 +25,8 @@ function App() {
             <Route path="/" element={<MainPage />} />
             {/* 로그인 페이지 */}
             <Route path="/login" element={<LoginPage />} />
+            {/* 구글로그인 이동 */}
+            <Route path="/google-success" element={<GoogleSuccessPage />} /> {/* ✅ 추가 */}
             {/* 회원가입 페이지 */}
             <Route path="/join" element={<RegisterPage />} />
             {/* 토큰 발급 페이지 */}
@@ -40,7 +44,7 @@ function App() {
             {/* 상품 등록 */}
             <Route path="/items/create" element={<ItemCreatePage />} />
             {/* 상품 수정 */}
-            <Route path="/items/edit" element={<ItemEditPage />} />
+            <Route path="/items/edit/:id" element={<ItemEditPage />} />
          </Routes>
          <Footer />
       </>
