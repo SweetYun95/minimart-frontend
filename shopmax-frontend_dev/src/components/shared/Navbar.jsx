@@ -23,6 +23,8 @@ function Navbar() {
    const navigate = useNavigate()
    const { isAuthenticated } = useSelector((state) => state.auth)
 
+   console.log('🎈', isAuthenticated)
+
    const [anchorEl, setAnchorEl] = useState(null)
    const open = Boolean(anchorEl)
 
@@ -104,9 +106,19 @@ function Navbar() {
                                  <ClickAwayListener onClickAway={handleMenuClose}>
                                     <Stack spacing={1}>
                                        {isAuthenticated ? (
-                                          <MenuItem onClick={handleLogout} sx={{ fontSize: 14, padding: '6px 16px' }}>
-                                             로그아웃
-                                          </MenuItem>
+                                          <>
+                                             <MenuItem onClick={handleLogout} sx={{ fontSize: 14, padding: '6px 16px' }}>
+                                                로그아웃
+                                             </MenuItem>
+                                             <MenuItem
+                                                onClick={() => {
+                                                   navigate('/mypage')
+                                                }}
+                                                sx={{ fontSize: 14, padding: '6px 16px' }}
+                                             >
+                                                마이페이지
+                                             </MenuItem>
+                                          </>
                                        ) : (
                                           <MenuItem onClick={handleLogin} sx={{ fontSize: 14, padding: '6px 16px' }}>
                                              로그인
