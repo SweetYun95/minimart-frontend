@@ -1,12 +1,11 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { checkTokenStatusThunk, getTokenThunk, readTokenThunk, refreshTokenThunk } from '../features/tokenSlice'
 
 function TokenPage() {
    const dispatch = useDispatch()
+   const [isFocused, setIsFocused] = useState(false)
+   const [isHovered, setIsHovered] = useState(false)
 
    const { token, tokenStatus, loading, error } = useSelector((state) => state.token)
 
@@ -35,37 +34,41 @@ function TokenPage() {
 
    if (loading) return <p>로딩 중...</p>
 
-   //읽기 전용 텍스트필드 (토큰 domain값 출력용)
-   const StyledTextField = styled(TextField)(() => ({
-      '& .Mui-readOnly': {
-         backgroundColor: '#f5f5f5',
-         cursor: 'not-allowed',
-      },
-   }))
+
    return (
       <>
-         <Container>
-            <Typography variant="h4" gutterBottom>
+         <div style={{backgroundColor: '#F2FAFF', paddingTop: '74px'}}>
+            <section className='token-section' style={{ height: '500px', padding: '40px 20px', maxWidth: '1200px', margin: '0 auto'}}>
+            <h1 className='section-title'>
                API Key 발급받기
-            </Typography>
-            {error && <Typography color="error">에러 발생:{error}</Typography>}
-            <StyledTextField fullWidth value={token || ''}></StyledTextField>
+            </h1>
+            {error && <p color="error">에러 발생:{error}</p>}
+            <textarea className='token-input' value={token || ''} style={{width: '100%', minHeight:'50px', padding: '12px', fontSize: '16px', lineHeight: '1.5', border: '1px solid #d8d8d8',
+                  borderRadius: '6px',
+                  cursor: 'not-allowed',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  boxShadow: '0 0 4px rgba(0, 123, 255, 0.3)'}} 
+                  onBlur={() => setIsFocused(false)}></textarea>
             {token && '발급받은 토큰이 존재합니다.'}
             {!token && (
-               <Button variant="outlined" onClick={handleGetToken}>
+               <button className='token-btn' style={{marginTop: '20px', fontSize: '16px', padding:'15px 20px', width:'200px', border: '1px solid #000', backgroundColor: isHovered ? '#463832' : '#FFFDE9',
+                color: isHovered ? '#fff' : '#000', borderRadius: '30px', cursor:'pointer', transition: 'all 0.3s ease' }} onMouseEnter={()=> setIsHovered(true)} onMouseLeave={()=> setIsHovered(false)} onClick={handleGetToken}>
                   발급받기
-               </Button>
+               </button>
             )}
             {tokenStatus === 'expired' && (
                <>
                   <p>토큰이 만료되었습니다.</p>
-                  <Button variant="outlined" onClick={handleRefreshToken}>
+                   <button className='token-btn' style={{marginTop: '20px', fontSize: '16px', padding:'15px 20px', width:'200px', border: '1px solid #000', backgroundColor: isHovered ? '#463832' : '#FFFDE9',
+                color: isHovered ? '#fff' : '#000', borderRadius: '30px', cursor:'pointer', transition: 'all 0.3s ease' }} onMouseEnter={()=> setIsHovered(true)} onMouseLeave={()=> setIsHovered(false)} onClick={handleRefreshToken}>
                      재발급받기
-                  </Button>
+                  </button>
                </>
             )}
-            {tokenStatus === 'invalid' && <Typography color="error">토큰이 유효하지 않습니다. 관리자에게 문의하세요. </Typography>}
-         </Container>
+            {tokenStatus === 'invalid' && <p color="error">토큰이 유효하지 않습니다. 관리자에게 문의하세요. </p>}
+            </section>
+         </div>
       </>
    )
 }

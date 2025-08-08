@@ -48,21 +48,20 @@
     justify-content: center;
 }
 
-.input-section {
-    width: 70%;
+.login-input-section {
     margin: 20px 0;
 }
 
-.input-section > div {
+.login-input-section > div {
     width: 100%;
     margin: 15px 0;
 }
 
-.input-section > div > p {
+.login-input-section > div > p {
     margin-bottom: 10px;
 }
 
-.input-section > div > input {
+.login-input-section > div > input {
 width: 100%;
 padding: 15px 20px;
 border-radius: 20px;

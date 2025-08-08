@@ -75,7 +75,7 @@ function LoginForm() {
             </h1>
             <form style={{ width: '100%' }} onSubmit={handleSubmit}>
                <div className="login-inside">
-                  <div className="input-section">
+                  <div className="login-input-section">
                      <div>
                         <p>ID</p>
                         <input label="ID" name="id" value={formData.id} onChange={handleChange} placeholder="아이디를 입력하세요" />

@@ -1,0 +1,27 @@
+{
+  "name": "shopmax-frontend",
+  "version": "1.0.0",
+  "description": "이 프로젝트는 React 기반 이커머스 프론트엔드입니다.   팀원들이 각자의 기능을 브랜치에서 개발한 뒤, `develop` 브랜치로 병합하여 협업합니다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SweetYun95/shopmax-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SweetYun95/shopmax-frontend/issues"
+  },
+  "homepage": "https://github.com/SweetYun95/shopmax-frontend#readme",
+  "dependencies": {
+    "@mui/material": "^7.2.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.11.0",
+    "react": "^19.1.1",
+    "react-router-dom": "^7.7.1"
+  }
+}
