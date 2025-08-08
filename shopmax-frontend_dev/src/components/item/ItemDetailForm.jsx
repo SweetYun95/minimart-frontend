@@ -123,7 +123,7 @@ function ItemDetailForm({ item }) {
 
             {/* 상세설명 출력 영역 */}
             {item.itemDetail && (
-               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }} fullWidth>
+               <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
                   {item.itemDetail}
                </Typography>
             )}
