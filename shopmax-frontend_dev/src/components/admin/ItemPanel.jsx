@@ -14,6 +14,8 @@ function ItemPanel({ searchTerm, sellCategory }) {
 
    const { items, loading, error } = useSelector((state) => state.item)
 
+   console.log('items:', items)
+
    const onClickDelete = (e) => {
       const res = confirm('정말 삭제하시겠습니까?')
       if (res) {
@@ -45,10 +47,13 @@ function ItemPanel({ searchTerm, sellCategory }) {
                   <Card key={item.id} sx={{ width: '200px' }}>
                      <CardMedia component="img" image={`${import.meta.env.VITE_APP_API_URL}${item.ItemImages?.filter((data) => data.repImgYn === 'Y')[0].imgUrl}`} />
                      <CardContent>
-                        <Typography>{item.itemNm}</Typography>
+                        <Typography variant="h6">{item.itemNm}</Typography>
+                        {item.Categories.map((ic) => (
+                           <Typography variant="caption">{'#' + ic.categoryName}</Typography>
+                        ))}
                      </CardContent>
                      <Box>
-                        <Link to={`/items/edit/${item.id}`} state={{ initialData: item }}>
+                        <Link to={`/items/edit/${item.id}`}>
                            <Button>수정</Button>
                         </Link>
                         <Button onClick={onClickDelete} id={item.id}>
