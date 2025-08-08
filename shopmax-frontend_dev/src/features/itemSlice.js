@@ -9,6 +9,7 @@ export const createItemThunk = createAsyncThunk('items/createItem', async (formD
       return {
          item: response.data.item,
          images: response.data.images || [],
+         categories: response.data.categories || [],
       }
    } catch (error) {
       return rejectWithValue(error.response?.data?.message)
@@ -39,6 +40,7 @@ export const deleteItemThunk = createAsyncThunk('items/deleteItem', async (id, {
 export const fetchItemsThunk = createAsyncThunk('items/getItems', async (data, { rejectWithValue }) => {
    try {
       const response = await getItems(data)
+      console.log('🎈:', response.data)
       return response.data
    } catch (error) {
       return rejectWithValue(error.response?.data?.message)
