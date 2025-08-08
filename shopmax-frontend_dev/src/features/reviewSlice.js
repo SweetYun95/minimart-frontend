@@ -76,10 +76,12 @@ export const reviewSlice = createSlice({
          })
          .addCase(getUserReviewThunk.fulfilled, (state, action) => {
             state.loading = false
+
             state.reviews = action.payload.review
          })
          .addCase(getUserReviewThunk.rejected, (state, action) => {
             state.loading = false
+
             state.error = action.payload
          })
    },

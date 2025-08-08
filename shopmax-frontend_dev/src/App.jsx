@@ -16,6 +16,7 @@ import GoogleSuccessPage from './pages/GoogleSuccessPage' // ✅ 추가
 
 import './App.css'
 import ItemEditPage from './pages/ItemEditPage'
+import MyPage from './pages/MyPage'
 
 function App() {
    return (
@@ -39,6 +40,8 @@ function App() {
             <Route path="/order" element={<OrderPage />} />
             {/* 리뷰 등록 */}
             <Route path="/review/create" element={<ReviewCreatePage />} />
+            {/* 마이페이지 */}
+            <Route path="mypage" element={<MyPage />} />
             {/* 관리자 전용 페이지 */}
             <Route path="/admin" element={<AdminPage />} />
             {/* 상품 등록 */}
