@@ -2,6 +2,7 @@
 import { Box, Button, Typography, Stack, TextField, keyframes } from '@mui/material'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { addToCartThunk } from '../../features/cartSlice'
 
 import { createOrderThunk } from '../../features/orderSlice'
 import ItemReviewList from '../review/ItemReviewList'
@@ -40,9 +41,16 @@ function ItemDetailForm({ item }) {
       }
    }
 
-   const handleAddToCart = () => {
-      alert('장바구니 기능은 추후 구현 예정입니다.')
-   }
+  const handleAddToCart = async () => {
+     try {
+        await dispatch(addToCartThunk({ itemId: item.id, count: quantity })).unwrap()
+        alert('장바구니에 추가되었습니다.')
+        
+     } catch (err) {
+        alert(`장바구니 추가 실패: ${err}`)
+     }
+  }
+
 
    return (
       <>

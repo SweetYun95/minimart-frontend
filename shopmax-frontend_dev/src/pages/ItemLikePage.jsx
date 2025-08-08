@@ -1,54 +1,32 @@
-import { Card, CardMedia, CardContent, Typography, Box, Button } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchItemsThunk } from '../../features/itemSlice'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Box, Typography, Card, CardMedia, CardContent } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { fetchItemsThunk } from '../features/itemSlice'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import IconButton from '@mui/material/IconButton'
-import { toggleLike } from '../../features/likeSlice'
+import { toggleLike } from '../features/likeSlice'
 
-function ItemSellList() {
+const ItemLikePage = () => {
    const dispatch = useDispatch()
-   const { items, loading, error } = useSelector((state) => state.item)
-   const [selectedCategory, setSelectedCategory] = useState('')
-   const likes = useSelector((state) => state.like.likes)
-
-
-   const categories = [
-      { id: '', name: '전체' },
-      { id: '1', name: '의류' },
-      { id: '2', name: '잡화' },
-      { id: '3', name: '식품' },
-   ]
 
    useEffect(() => {
-      dispatch(fetchItemsThunk({ categoryId: selectedCategory }))
-   }, [dispatch, selectedCategory])
+      dispatch(fetchItemsThunk({ categoryId: '' }))
+   }, [dispatch])
 
+   const { items } = useSelector((state) => state.item)
+   const likes = useSelector((state) => state.like.likes)
 
-   if (loading) return null
-   if (error) {
-      return (
-         <Typography align="center" color="error">
-            에러 발생: {error}
-         </Typography>
-      )
-   }
+   const likedItems = items.filter((item) => likes[item.id])
 
    return (
       <Box sx={{ padding: '20px' }}>
-         {/* 카테고리 바 */}
-         <Box mb={3} display="flex" gap={1}>
-            {categories.map((cat) => (
-               <Button key={cat.id} variant={selectedCategory === cat.id ? 'contained' : 'outlined'} onClick={() => setSelectedCategory(cat.id)}>
-                  {cat.name}
-               </Button>
-            ))}
-         </Box>
+         <Typography variant="h4" gutterBottom>
+            좋아요한 상품
+         </Typography>
 
-         {/* 상품 리스트 */}
-         {items.length > 0 ? (
+         {likedItems.length > 0 ? (
             <Box
                sx={{
                   display: 'grid',
@@ -59,10 +37,9 @@ function ItemSellList() {
                      lg: 'repeat(4, 1fr)',
                   },
                   gap: '16px',
-                  justifyItems: 'center',
                }}
             >
-               {items.map((item) => {
+               {likedItems.map((item) => {
                   const repImage = item.ItemImages?.find((img) => img.repImgYn === 'Y')?.imgUrl || '/images/no-image.jpg'
                   return (
                      <Link key={item.id} to={`/items/detail/${item.id}`} style={{ textDecoration: 'none' }}>
@@ -75,7 +52,6 @@ function ItemSellList() {
                               <Typography variant="body2" color="text.secondary">
                                  {item.price?.toLocaleString()}원
                               </Typography>
-                              {/* 좋아요 버튼 추가 */}
                               <IconButton
                                  onClick={(e) => {
                                     e.preventDefault()
@@ -84,7 +60,6 @@ function ItemSellList() {
                               >
                                  {likes[item.id] ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
                               </IconButton>
-
                            </CardContent>
                         </Card>
                      </Link>
@@ -92,12 +67,10 @@ function ItemSellList() {
                })}
             </Box>
          ) : (
-            <Box sx={{ textAlign: 'center' }}>
-               <Typography variant="h6">검색된 상품이 없습니다.</Typography>
-            </Box>
+            <Typography variant="body1">좋아요한 상품이 없습니다.</Typography>
          )}
       </Box>
    )
 }
 
-export default ItemSellList
+export default ItemLikePage
