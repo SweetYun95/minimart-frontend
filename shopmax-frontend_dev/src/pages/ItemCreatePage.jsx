@@ -14,7 +14,7 @@ function ItemCreatePage() {
       dispatch(createItemThunk(itemData))
          .unwrap()
          .then(() => {
-            navigate('/items/createlist')
+            navigate('/admin')
          })
          .catch((error) => {
             console.error('상품 등록에러:', error)

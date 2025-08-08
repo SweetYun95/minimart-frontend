@@ -29,7 +29,7 @@ export const loginUser = async (credentials) => {
 // 로그아웃
 export const logoutUser = async () => {
    try {
-      const response = await shopmaxApi.get('/auth/logout')
+      const response = await shopmaxApi.post('/auth/logout', {}, { withCredentials: true })
       return response
    } catch (error) {
       console.error(`API Request 오류: ${error}`)
@@ -52,6 +52,7 @@ export const checkAuthStatus = async () => {
 export const checkUsername = async (userId) => {
    try {
       const response = await shopmaxApi.post('/auth/check-username', { userId })
+      console.log('아이디 중복 확인 response', response)
       return response
    } catch (error) {
       console.error(`아이디 중복 확인 오류: ${error}`)
