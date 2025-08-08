@@ -8,7 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import IconButton from '@mui/material/IconButton'
 import { toggleLike } from '../../features/likeSlice'
 
-function ItemSellList({ searchTerm }) {
+function ItemSellList() {
    const dispatch = useDispatch()
    const { items, loading, error } = useSelector((state) => state.item)
    const [selectedCategory, setSelectedCategory] = useState('')
@@ -22,8 +22,8 @@ function ItemSellList({ searchTerm }) {
    ]
 
    useEffect(() => {
-      dispatch(fetchItemsThunk({ searchTerm, categoryId: selectedCategory }))
-   }, [dispatch, searchTerm, selectedCategory])
+      dispatch(fetchItemsThunk({ categoryId: selectedCategory }))
+   }, [dispatch, selectedCategory])
 
    if (loading) return null
    if (error) {

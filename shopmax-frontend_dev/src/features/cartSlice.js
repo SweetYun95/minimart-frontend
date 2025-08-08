@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getCartItems, addToCart, updateCartItem, deleteCartItem } from '../api/cartApi'
 
 // 장바구니 불러오기
-export const fetchCartItemsThunk = createAsyncThunk('cart/fetchCartItems', async (_, { rejectWithValue }) => {
+export const fetchCartItemsThunk = createAsyncThunk('cart/fetchCartItems', async (id, { rejectWithValue }) => {
    try {
-      return await getCartItems()
+      const response = await getCartItems(id)
+      return response
    } catch (err) {
       return rejectWithValue(err.response?.data?.message || '장바구니 조회 실패')
    }

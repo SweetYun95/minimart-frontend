@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchCartItemsThunk, updateCartItemThunk, deleteCartItemThunk } from '../../features/cartSlice'
 import { Box, Typography, Card, CardMedia, CardContent, IconButton, Button, TextField, Divider } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useParams } from 'react-router-dom'
 
 const ItemCartForm = () => {
    const dispatch = useDispatch()
    const { items: cartItems, loading } = useSelector((state) => state.cart)
-
+   const { id } = useParams()
    useEffect(() => {
-      dispatch(fetchCartItemsThunk())
+      dispatch(fetchCartItemsThunk(id))
    }, [dispatch])
 
    const handleUpdate = (cartItemId, count) => {
@@ -35,7 +36,7 @@ const ItemCartForm = () => {
             {cartItems.map((item) => {
                const repImage = item.Item.ItemImages?.find((img) => img.repImgYn === 'Y')?.imgUrl || '/images/no-image.jpg'
                return (
-                  <Card key={item.id} sx={{ display: 'flex', mb: 2 }}>
+                  <Card key={`${item.id}-${item.Item.id}`} sx={{ display: 'flex', mb: 2 }}>
                      <CardMedia component="img" sx={{ width: 140 }} image={`${import.meta.env.VITE_APP_API_URL}${repImage}`} alt={item.Item.itemNm} />
                      <CardContent sx={{ flex: 1 }}>
                         <Typography variant="h6">{item.Item.itemNm}</Typography>

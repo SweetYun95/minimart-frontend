@@ -16,6 +16,8 @@ import GoogleSuccessPage from './pages/GoogleSuccessPage' // ✅ 추가
 
 import './App.css'
 import ItemEditPage from './pages/ItemEditPage'
+import ItemLikePage from './pages/ItemLikePage'
+import ItemCartForm from './components/item/ItemCartForm'
 
 function App() {
    return (
@@ -35,6 +37,10 @@ function App() {
             <Route path="/item" element={<ItemSellListPage />} />
             {/* 상품 상세 페이지 */}
             <Route path="/items/detail/:id" element={<ItemDetailPage />} />
+            {/* 좋아요한 상품 페이지 */}
+            <Route path="/likes/item" element={<ItemLikePage />} />
+            {/* 장바구니 페이지 */}
+            <Route path="/cart" element={<ItemCartForm />} />
             {/* 주문/결제 페이지 */}
             <Route path="/order" element={<OrderPage />} />
             {/* 리뷰 등록 */}

@@ -1,10 +1,11 @@
 import shopmaxApi from './axiosApi'
 
 // 장바구니 전체 조회
-export const getCartItems = async () => {
-   const res = await shopmaxApi.get('/cart', {
+export const getCartItems = async (id) => {
+   const res = await shopmaxApi.get(`/cart/${id}`, {
       withCredentials: true,
    })
+   console.log('res:', res)
    return res.data
 }
 
