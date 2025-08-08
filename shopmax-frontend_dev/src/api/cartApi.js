@@ -26,5 +26,6 @@ export const deleteCartItem = async (cartItemId) => {
    const res = await shopmaxApi.delete(`/cart/delete/${cartItemId}`, {
       withCredentials: true,
    })
+   console.log('res:', res)
    return res.data
 }
