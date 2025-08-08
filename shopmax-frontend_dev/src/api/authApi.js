@@ -29,7 +29,7 @@ export const loginUser = async (credentials) => {
 // 로그아웃
 export const logoutUser = async () => {
    try {
-      const response = await shopmaxApi.get('/auth/logout')
+      const response = await shopmaxApi.post('/auth/logout', {}, { withCredentials: true })
       return response
    } catch (error) {
       console.error(`API Request 오류: ${error}`)
