@@ -1,49 +1,56 @@
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getItemReviewThunk } from '../../features/reviewSlice'
-
 function ItemReviewList({ item }) {
-   const dispatch = useDispatch()
-   const { reviews, loading, error } = useSelector((state) => state.review)
-   useEffect(() => {
-      dispatch(getItemReviewThunk(item.id))
-   }, [dispatch, item])
-
-   if (reviews) console.log('🎁[ItemReviewList.jsx] 리뷰 데이터 확인:', reviews)
-
-   if (loading) <p>로딩 중...</p>
-   if (error) <p>에러가 발생했습니다.: {error}</p>
+   console.log('🎁[ItemReviewList.jsx] 아이템 데이터 확인:', item)
+   const Reviews = item.Reviews
+   console.log('🎁[ItemReviewList.jsx] 리뷰 데이터 확인:', Reviews)
+   console.log(Reviews.length)
 
    return (
       <>
-         {reviews && (
+         {item && (
             <Box>
                <Accordion>
                   <AccordionSummary>
                      <Typography>REVIEW</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                     {reviews?.map((review) => (
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }} key={review.id}>
-                           <Typography
+                     {Reviews.length > 0 ? (
+                        Reviews?.map((review) => (
+                           <Box
                               sx={{
-                                 whiteSpace: 'nowrap',
-                                 overflow: 'hidden',
-                                 textOverflow: 'ellipsis',
-                                 maxWidth: '1000px',
+                                 display: 'flex',
+                                 justifyContent: 'space-around',
                               }}
+                              key={review.id}
                            >
-                              {review?.reviewContent}
-                           </Typography>
-                           <Box maxWidth="120px">
-                              <Typography sx={{ fontWeight: 'bold' }}>{review?.User.name}</Typography>
-                              <Typography>{review?.reviewDate.slice(0, 10)}</Typography>
+                              <Box>
+                                 {review.ReviewImages.map((data, index) => (
+                                    <img src={`${import.meta.env.VITE_APP_API_URL}${data.imgUrl}`} key={index} width="80px" />
+                                 ))}
+                              </Box>
+
+                              <Typography
+                                 sx={{
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    maxWidth: '500px',
+                                 }}
+                              >
+                                 {review?.reviewContent}
+                              </Typography>
+                              <Box maxWidth="120px">
+                                 <Typography sx={{ fontWeight: 'bold' }}>{review.User.name}</Typography>
+                                 <Typography>{review?.reviewDate.slice(0, 10)}</Typography>
+                              </Box>
                            </Box>
-                        </Box>
-                     ))}
+                        ))
+                     ) : (
+                        <Typography>해당 상품에 등록된 리뷰가 없습니다.</Typography>
+                     )}
                   </AccordionDetails>
                </Accordion>
             </Box>
