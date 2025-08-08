@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { createReview, updateReview, getItemReview, getUserReview } from '../api/reviewApi'
+import { createReview, updateReview, getUserReview } from '../api/reviewApi'
 
 // 리뷰 등록하기
 export const createReviewThunk = createAsyncThunk('review/createReview', async (formData, { rejectWithValue }) => {
@@ -21,20 +21,10 @@ export const updateReviewThunk = createAsyncThunk('review/updateReview', async (
    }
 })
 
-//상품에 대한 리뷰 조회하기
-export const getItemReviewThunk = createAsyncThunk('review/getItemReview', async (itemId, { rejectWithValue }) => {
-   try {
-      const response = await getItemReview(itemId)
-      return response.data
-   } catch (error) {
-      return rejectWithValue(error.response?.data?.message)
-   }
-})
-
 //회원이 작성한 리뷰 조회하기
-export const getUserReviewThunk = createAsyncThunk('review/getUserReview', async (userId, { rejectWithValue }) => {
+export const getUserReviewThunk = createAsyncThunk('review/getUserReview', async (id, { rejectWithValue }) => {
    try {
-      const response = await getUserReview(userId)
+      const response = await getUserReview(id)
       return response.data
    } catch (error) {
       return rejectWithValue(error.response?.data?.message)
@@ -79,30 +69,19 @@ export const reviewSlice = createSlice({
             state.loading = false
             state.error = action.payload
          })
-         // 상품 전체 후기 조회
-         .addCase(getItemReviewThunk.pending, (state) => {
-            state.loading = true
-            state.error = null
-         })
-         .addCase(getItemReviewThunk.fulfilled, (state, action) => {
-            state.loading = false
-            state.reviews = action.payload.review
-         })
-         .addCase(getItemReviewThunk.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
-         })
-         // 회원이 작성한 전체 후기 조회
+         // 회원이 작성한 후기 조회
          .addCase(getUserReviewThunk.pending, (state) => {
             state.loading = true
             state.error = null
          })
          .addCase(getUserReviewThunk.fulfilled, (state, action) => {
             state.loading = false
+
             state.reviews = action.payload.review
          })
          .addCase(getUserReviewThunk.rejected, (state, action) => {
             state.loading = false
+
             state.error = action.payload
          })
    },
