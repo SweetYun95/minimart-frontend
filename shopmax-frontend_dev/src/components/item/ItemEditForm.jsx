@@ -2,14 +2,16 @@ import { TextField, Button, Box, MenuItem, Select, InputLabel, FormControl } fro
 import { useState } from 'react'
 import { formatWithComma, stripComma } from '../../utils/priceSet'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { updateItemThunk } from '../../features/itemSlice'
 
 function ItemEditForm({ initialData }) {
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const { id } = useParams()
 
-   const [imgUrls, setImgUrls] = useState(initialData.ItemImages.map((img) => import.meta.env.VITE_APP_API_URL + img.imgUrl))
+   console.log(initialData)
+   const [imgUrls, setImgUrls] = useState(initialData.ItemImages?.map((img) => import.meta.env.VITE_APP_API_URL + img.imgUrl))
    const [imgFiles, setImgFiles] = useState([])
    const [itemNm, setItemNm] = useState(initialData.itemNm)
    const [price, setPrice] = useState(initialData.price)
@@ -17,6 +19,9 @@ function ItemEditForm({ initialData }) {
    const [itemSellStatus, setItemSellStatus] = useState(initialData.itemSellStatus)
    const [itemDetail, setItemDetail] = useState(initialData.itemDetail)
    const [itemSummary, setItemSummary] = useState(initialData.itemSummary)
+   const [inputCategory, setInputCategory] = useState(initialData.Categories.map((category) => `#${category.categoryName}`).join(' ') || '')
+
+   console.log('initialData:', initialData)
 
    // 이미지 미리보기
    const handleImageChange = (e) => {
@@ -45,16 +50,16 @@ function ItemEditForm({ initialData }) {
    }
 
    const onEditSubmit = (formData) => {
-      dispatch(updateItemThunk(initialData.id, formData))
-      //  .unwrap()
-      //  .then(() => {
-      //     alert('수정이 완료되었습니다.')
-      //     navigate('/admin')
-      //  })
-      //  .catch(() => {
-      //     console.error('상품 수정 에러:', error)
-      //     alert('상품 수정에 실패했습니다.:' + error)
-      //  })
+      dispatch(updateItemThunk({ id, formData }))
+         .unwrap()
+         .then(() => {
+            alert('수정이 완료되었습니다.')
+            navigate('/admin')
+         })
+         .catch(() => {
+            const error = new Error('상품 수정에 실패했습니다.')
+            alert(error)
+         })
    }
 
    // 상품 등록
@@ -92,8 +97,14 @@ function ItemEditForm({ initialData }) {
          })
       }
 
+      const categories = inputCategory
+         .split('#')
+         .map((c) => c.trim())
+         .filter((c) => c !== '')
+      formData.append('categories', JSON.stringify(categories))
+
       // 상품등록 함수 실행
-      onEditSubmit(formData)
+      onEditSubmit(formData, id)
    }
 
    const handlePriceChange = (e) => {
@@ -183,6 +194,9 @@ function ItemEditForm({ initialData }) {
             </Select>
          </FormControl>
 
+         {/* 상품 카테고리 입력 필드 */}
+         <TextField label="상품 카테고리 (#로 구분)" variant="outlined" fullWidth value={inputCategory} onChange={(e) => setInputCategory(e.target.value)} sx={{ mt: 2 }} />
+
          {/* 상품 요약 입력 필드 */}
          <TextField label="상품 요약 (500자 미만)" variant="outlined" fullWidth multiline rows={2} value={itemSummary} onChange={(e) => setItemSummary(e.target.value)} sx={{ mt: 2 }} />
 
@@ -190,7 +204,7 @@ function ItemEditForm({ initialData }) {
          <TextField label="상품설명" variant="outlined" fullWidth multiline rows={4} value={itemDetail} onChange={(e) => setItemDetail(e.target.value)} sx={{ mt: 2 }} />
 
          {/* 수정 버튼 */}
-         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSubmit}>
             수정하기
          </Button>
       </Box>

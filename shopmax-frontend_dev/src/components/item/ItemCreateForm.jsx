@@ -11,6 +11,7 @@ function ItemCreateForm({ onCreateSubmit }) {
    const [itemSellStatus, setItemSellStatus] = useState('SELL') // 판매상태
    const [itemDetail, setItemDetail] = useState('') // 상품설명
    const [itemSummary, setItemSummary] = useState('') // 상품 요약 (간단한 설명)
+   const [inputCategory, setInputCategory] = useState('')
 
    // 이미지 미리보기
    const handleImageChange = (e) => {
@@ -77,6 +78,13 @@ function ItemCreateForm({ onCreateSubmit }) {
          const encodedFile = new File([file], encodeURIComponent(file.name), { type: file.type })
          formData.append('img', encodedFile)
       })
+
+      // 카테고리 입력값 배열 형태로 변경
+      const categories = inputCategory
+         .split('#')
+         .map((c) => c.trim())
+         .filter((c) => c !== '')
+      formData.append('categories', JSON.stringify(categories))
 
       // 상품등록 함수 실행
       onCreateSubmit(formData)
@@ -168,6 +176,9 @@ function ItemCreateForm({ onCreateSubmit }) {
                <MenuItem value="SOLD_OUT">품절</MenuItem>
             </Select>
          </FormControl>
+
+         {/* 상품 카테고리 입력 필드 */}
+         <TextField label="상품 카테고리 (#로 구분)" variant="outlined" fullWidth value={inputCategory} onChange={(e) => setInputCategory(e.target.value)} sx={{ mt: 2 }} />
 
          {/* 상품 요약 입력 필드 */}
          <TextField label="상품 요약 (500자 미만)" variant="outlined" fullWidth multiline rows={2} value={itemSummary} onChange={(e) => setItemSummary(e.target.value)} sx={{ mt: 2 }} />
