@@ -14,6 +14,7 @@ function ItemSellList() {
    const [selectedCategory, setSelectedCategory] = useState('')
    const likes = useSelector((state) => state.like.likes)
 
+
    const categories = [
       { id: '', name: '전체' },
       { id: '1', name: '의류' },
@@ -24,6 +25,7 @@ function ItemSellList() {
    useEffect(() => {
       dispatch(fetchItemsThunk({ categoryId: selectedCategory }))
    }, [dispatch, selectedCategory])
+
 
    if (loading) return null
    if (error) {
@@ -82,6 +84,7 @@ function ItemSellList() {
                               >
                                  {likes[item.id] ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
                               </IconButton>
+
                            </CardContent>
                         </Card>
                      </Link>

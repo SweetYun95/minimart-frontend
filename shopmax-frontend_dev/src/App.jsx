@@ -20,6 +20,7 @@ import MyPage from './pages/MyPage'
 import ItemLikePage from './pages/ItemLikePage'
 import ItemCartForm from './components/item/ItemCartForm'
 
+
 function App() {
    return (
       <>
@@ -42,6 +43,7 @@ function App() {
             <Route path="/likes/item" element={<ItemLikePage />} />
             {/* 장바구니 페이지 */}
             <Route path="/cart" element={<ItemCartForm />} />
+
             {/* 주문/결제 페이지 */}
             <Route path="/order" element={<OrderPage />} />
             {/* 리뷰 등록 */}
